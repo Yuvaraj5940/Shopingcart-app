@@ -14,7 +14,7 @@ function Login() {
             email: 'yuvaraj@gmail.com',
             password: 'password',
           },
-
+          replace: true,
         });
       }}
       method="POST"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { CounterProvider } from './context/countercontext';
 
 import About from './pages/about';
 import Home from './pages/home';
@@ -44,7 +45,10 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
-    <RouterProvider router={router} />
+    <CounterProvider>
+      <RouterProvider router={router} />
+    </CounterProvider>
+
   );
 }
 
