@@ -1,7 +1,7 @@
 export const initialCartState = [];
 
 export const cartReduser = (
-  state,
+  state = initialCartState,
   { type, payload },
 ) => {
   switch (type) {

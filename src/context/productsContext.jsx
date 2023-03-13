@@ -6,12 +6,13 @@ import React, {
   useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import axiosInstance from '../utils/axiosInstance';
 import {
   initialProductsState,
   productsReducer,
 } from '../reduser/productreduser';
 import useDispatch from '../Hooks/usedispatch';
+import axiosInstance from '../utils/axiosInstance';
+// import axiosInstance from '../utils/axiosInstance';
 
 export const ProductsContext = createContext();
 

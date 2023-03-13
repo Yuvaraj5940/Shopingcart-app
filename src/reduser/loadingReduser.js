@@ -1,5 +1,7 @@
 export const initLoadingState = {};
-export const LoadingReduser = (state, { type, payload }) => {
+export const LoadingReduser = (
+  state=initLoadingState,
+  { type, payload }) => {
   const match = /(.*)_(REQUEST|SUCCESS|FAIL)/.exec(type);
   if (!match) return state;
   const [, actionName, actionType] = match;

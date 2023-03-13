@@ -1,36 +1,83 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // import { useLocation } from 'react-router-dom';
 import { StarIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
-import { ProductsContext } from '../../context/productsContext';
+// import { products } from '../../context/productsContext';
 import { CartContext } from '../../context/cartContext';
 import { useLoading } from '../../context/loadingContext';
-// import { ProductsContext } from '../../context/productsContext';
+import axiosInstance from '../../utils/axiosInstance';
+import { ProductsContext } from '../../context/productsContext';
 // import { CartContext } from '../../context/cartContext';
 // import { useError } from '../../context/errorContext';
 // import { useLoading } from '../../context/loadingContext';
 
 function Home() {
-  const { loadProducts, products } =
-    useContext(ProductsContext);
+  // const { products } =
+  //   useContext(ProductsContext);
 
   const {
-    loadCart,
     addToCart,
     updateCartItem,
     deleteCartItem,
-    cart,
   } = useContext(CartContext);
 
   // const { error } = useError();
   const { loading } = useLoading();
+  const dispatch = useDispatch();
+  const { cart, products } = useSelector((state) => state);
+  // console.log(data);
 
-  console.log(JSON.stringify(loading));
+  const loadProducts = useCallback(async () => {
+    const type = 'LOAD_PRODUCTS';
+    try {
+      dispatch({
+        type: `${type}_REQUEST`,
+        payload: { message: 'Products are loading...' },
+      });
+      const res = await axiosInstance.get('products');
+      dispatch({
+        type: `${type}_SUCCESS`,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: `${type}_FAIL`,
+        payload: {
+          message: err.message,
+          title: 'Load Products Failed',
+        },
+      });
+    }
+  }, []);
+
+  const loadCart = useCallback(async () => {
+    const type = 'LOAD_CART';
+    try {
+      dispatch({
+        type: `${type}_REQUEST`,
+        payload: { message: 'Products are loading...' },
+      });
+      const res = await axiosInstance.get('cart');
+      dispatch({
+        type: `${type}_SUCCESS`,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: `${type}_FAIL`,
+        payload: {
+          message: err.message,
+          title: 'Load Products Failed',
+        },
+      });
+    }
+  }, []);
 
   useEffect(() => {
     loadProducts();
     loadCart();
-  }, []);
+  }, [loadProducts, loadCart]);
 
   if (loading.LOAD_PRODUCTS || loading.LOAD_CART) {
     return (
