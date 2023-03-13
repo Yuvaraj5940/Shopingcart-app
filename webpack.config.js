@@ -32,7 +32,7 @@ module.exports = {
 
   mode: 'development',
   devServer: {
-    port: '3006',
+    port: '3004',
     open: true,
     historyApiFallback: true,
   },

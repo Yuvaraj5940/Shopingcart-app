@@ -4,8 +4,8 @@ import { CounterProvider } from './context/countercontext';
 
 import About from './pages/about';
 import Home from './pages/home';
-import Authlayout from './pages/layout/authlayout';
-import Dashbordlayout from './pages/layout/dashbordlayout';
+import Authlayout from './layout/authlayout';
+import Dashbordlayout from './layout/dashbordlayout';
 import Login from './pages/login';
 import Register from './pages/register';
 
@@ -45,9 +45,7 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
-    <CounterProvider>
-      <RouterProvider router={router} />
-    </CounterProvider>
+    <RouterProvider router={router} />
 
   );
 }

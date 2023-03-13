@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import {
   Bars3Icon, ShieldCheckIcon, ShoppingBagIcon, XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { Countercontext } from '../../context/countercontext';
+import { CounterContext, Countercontext } from '../../context/countercontext';
+import { AuthContext } from '../../context/authContext';
+import { CartContext } from '../../context/cartContext';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -17,6 +19,9 @@ function classNames(...classes) {
 }
 
 function Header() {
+  const { Logout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -71,7 +76,9 @@ function Header() {
                   className="flex rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
-                  <Countercontext.Consumer>{(data) => <p>{data}</p>}</Countercontext.Consumer>
+                  <span>
+                    {cart.reduce((p, c) => p + c.quantity, 0)}
+                  </span>
 
                 </button>
 
@@ -119,12 +126,13 @@ function Header() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="/"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          <button
+                            type="button"
+                            className={classNames(active ? 'bg-gray-100' : '', 'w-full text-left block px-4 py-2 text-sm text-gray-700')}
+                            onClick={Logout}
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
