@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { cartReduser as cart } from './cartReduser';
-import { errorReducer as error } from './errorReduser';
-import { LoadingReduser as load } from './loadingReduser';
-import { productsReducer as product } from './productreduser';
+import { productsReducer as products } from './productreduser';
+import { errorReducer as errors } from './errorReduser';
+import { LoadingReduser as loading } from './loadingReduser';
 
 export default combineReducers({
   cart,
-  error,
-  load,
-  product,
+  products,
+  loading,
+  errors,
 });
