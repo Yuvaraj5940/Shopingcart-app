@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import useDispatch from '../Hooks/usedispatch';
 import { cartReduser, initialCartState } from '../reduser/cartReduser';
 import axiosInstance from '../utils/axiosInstance';
-// import UseDispatch from '../Hooks/usedispatch';
-// import { cartReduser, initialCartState } from '../reduser/cartReduser';
-// import axiosInstance from '../utils/axiosInstance';
+
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
