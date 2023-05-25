@@ -15,7 +15,7 @@ function Home() {
   // } = useContext(CartContext);
 
   // const { error } = useError();
-  const { products, loading } = useSelector((state) => state);
+  const {cart, products, loading } = useSelector((state) => state);
   const dispatch = useDispatch();
   // console.log(data);
 
@@ -24,7 +24,7 @@ function Home() {
     try {
       dispatch({
         type: `${type}_REQUEST`,
-        payload: { message: 'Products are loading...' },
+        meta: { id: -1, message: 'Products are loading...' },
       });
       const res = await axiosInstance.get('products');
       dispatch({
@@ -34,7 +34,8 @@ function Home() {
     } catch (err) {
       dispatch({
         type: `${type}_FAIL`,
-        payload: {
+        meta: {
+          id: -1,
           message: err.message,
           title: 'Load Products Failed',
         },
@@ -47,7 +48,7 @@ function Home() {
     try {
       dispatch({
         type: `${type}_REQUEST`,
-        payload: { message: 'Products are loading...' },
+        meta: {id: -1, message: 'Products are loading...' },
       });
       const res = await axiosInstance.get('cart');
       dispatch({
@@ -57,7 +58,8 @@ function Home() {
     } catch (err) {
       dispatch({
         type: `${type}_FAIL`,
-        payload: {
+        meta: {
+          id: -1,
           message: err.message,
           title: 'Load Products Failed',
         },
@@ -70,14 +72,14 @@ function Home() {
     loadCart();
   }, [loadProducts, loadCart]);
 
-  if (loading.LOAD_PRODUCTS || loading.LOAD_CART) {
-    return (
-      <div>
-        <p>{loading.LOAD_PRODUCTS?.message}</p>
-        <p>{loading.LOAD_CART?.message}</p>
-      </div>
-    );
-  }
+  // if (loading.LOAD_PRODUCTS || loading.LOAD_CART) {
+  //   return (
+  //     <div>
+  //       <p>{loading.LOAD_PRODUCTS?.message}</p>
+  //       <p>{loading.LOAD_CART?.message}</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

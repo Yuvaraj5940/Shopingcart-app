@@ -2,7 +2,7 @@ import React from 'react';
 import { StarIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 
-function Review({rate, count}) {
+function Review({ rate, count }) {
   return (
     <div className="mt-6">
       <h4 className="sr-only">Reviews</h4>

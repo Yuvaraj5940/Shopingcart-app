@@ -4,6 +4,7 @@ import Review from '../components/Review';
 import axiosInstance from '../utils/axiosInstance';
 
 function Product({ product }) {
+
   const { cart: cartItem, loading } = useSelector((state) => ({
     cart: state.cart.find(
       (item) => item.productId === product.id,
@@ -18,7 +19,7 @@ function Product({ product }) {
       const type = 'ADD_CART';
       try {
         dispatch({
-          type: `${type}_${product.id}_REQUEST`,
+          type: `${type}_REQUEST`,
           payload: {
             message: 'Cart Item is adding...',
           },
@@ -31,7 +32,7 @@ function Product({ product }) {
         });
       } catch (error) {
         dispatch({
-          type: `${type}_${product.id}_FAIL`,
+          type: `${type}_FAIL`,
           payload: {
             message: error.message,
             title: 'Add Cart Failed',
@@ -48,7 +49,7 @@ function Product({ product }) {
       const type = 'UPDATE_CART';
       try {
         dispatch({
-          type: `${type}_${product.id}_REQUEST`,
+          type: `${type}_REQUEST`,
           payload: { message: 'Cart Item is updating...' },
 
         });
@@ -57,13 +58,13 @@ function Product({ product }) {
           data,
         );
         dispatch({
-          type: `${type}_${product.id}_SUCCESS`,
+          type: `${type}_SUCCESS`,
           payload: res.data,
 
         });
       } catch (err) {
         dispatch({
-          type: `${type}_${product.id}_FAIL`,
+          type: `${type}_FAIL`,
           payload: {
             message: err.message,
             title: 'Update Cart Failed',
@@ -79,18 +80,18 @@ function Product({ product }) {
       const type = 'DELETE_CART';
       try {
         dispatch({
-          type: `${type}_${product.id}_REQUEST`,
+          type: `${type}_REQUEST`,
           payload: { message: 'Cart Item is deleting...' },
         });
         await axiosInstance.delete(`cart/${data.id}`);
 
         dispatch({
-          type: `${type}_${product.id}_SUCCESS`,
+          type: `${type}_SUCCESS`,
           payload: data,
         });
       } catch (err) {
         dispatch({
-          type: `${type}_${product.id}_FAIL`,
+          type: `${type}_FAIL`,
           payload: {
             message: err.message,
             title: 'Delete Cart Failed',
@@ -185,7 +186,7 @@ function Product({ product }) {
               <button
                 type="button"
                 disabled={
-                        loading[`UPDATE_CART_${product.id}`]
+                        loading[`UPDATE_CART`]
                       }
                 onClick={() => updateCartItem({
                   ...cartItem,
@@ -203,10 +204,10 @@ function Product({ product }) {
                 disabled={
                         cartItem.quantity > 1 ?
                           loading[
-                            `UPDATE_CART_${product.id}`
+                            `UPDATE_CART`
                           ] :
                           loading[
-                            `DELETE_CART_${product.id}`
+                            `DELETE_CART`
                           ]
                       }
                 onClick={() => {
@@ -228,7 +229,7 @@ function Product({ product }) {
             <button
               type="button"
               disabled={
-                      loading[`ADD_CART_${product.id}`]
+                      loading[`ADD_CART`]
                     }
               onClick={() => addToCart({
                 productId: product.id,
